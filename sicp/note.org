@@ -1,0 +1,121 @@
+#+HUGO_BASE_DIR: ~/workspace/blog
+#+title: scip 第一章
+* 第一章
+** 程序设计的基本元素
+   1. 基本的表达形式: 用于表示语言所关心的最简单的个体
+   2. 组合的方法: 通过它们可以从较简单的东西出发构造出复合的元素
+   3. 抽像的方法: 通过它们可以位复合的对象命名，并将它们当作单元取操作
+*** lisp一些基本元素
+    1. 表达式
+       #+BEGIN_SRC racket
+         ;; -------------- 基本表达式 --------------------
+         ;; 数
+         485
+         1
+
+         ;; -------------- 复合表达式 --------------------
+         ;; 加
+         (+ 138 349)
+         ;; 减
+         (- 1000 334)
+         ;; 除
+         (/ 10 4)
+         ;; 乘
+         (* 10 2)
+       #+END_SRC
+
+    2. 命名与环境
+       #+BEGIN_SRC racket
+         (define pi 3.1315926)
+         (define radius 10)
+         (define circumference (* 2 pi radius))
+       #+END_SRC
+
+    3. 组合式求值
+       求值规则的列外称为特殊形式，比如define, 求值规则如下:
+       3.1 求值该组合式的各个子表达式
+       3.2 将作为最左表达式（运算符)的值的那个过程应用于相应的实际参数，所谓实际参数也就是其他子表达式（运算对象）的值
+
+    4. 复合过程
+       过程的定义的一般形式如下:
+       (define (<name> <formal parameters>) body)
+
+    5. 过程代换的代换模型
+       #+BEGIN_SRC racket
+         ;; 求一个数的平方
+         (define (square x)
+           (* x x))
+
+         ;; 求两个数的平方和
+         (define (sum-of-squares x y)
+           (+ (square x) (square y)))
+
+         (define (f a)
+           (sum-of-squares (+ a 1) (* a 2)))
+
+         ;; ----------------- 代换模型 ----------------
+
+         ;; 应用序求值,先求值参数而后规约
+         (f 5)
+         (sum-of-squares (+ 5 1) (* 5 2))
+         (sum-of-squares 6 10)
+         (+ (square 6) (square 10))
+         (+ (* 6 6) (* 10 10))
+         (+ 36 100)
+
+
+         ;; 正则序求值,完全展开后归约
+         (f 5)
+         (sum-of-squares (+ 5 1) (* 5 2))
+         (+ (square (+ 5 1)) (square (* 5 2)))
+         (+ (* (+ 5 1) (+ 5 1)) (* (* 5 2) (* 5 2)))
+         (+ (* 6 6) (* 10 10))
+         (+ 36 100)
+       #+END_SRC
+
+    6. 条件表达式和谓词
+       #+BEGIN_SRC racket
+         ;; ---------------- cond ---------------------
+         ;; (cond (<p1> <e1>)
+         ;;       (<p2> <e2>)
+         ;;       (<p3> <e3>)
+         ;;       (<p4> <e4>)
+         ;;       )
+         (define (abs x)
+           (cond ((> x 0) x)
+                 ((= x 0) 0)
+                 ((< x 0) (- x))))
+
+         ;; --------------- if --------------------------
+         ;; (if <predicate> <consequent> <alternative>)
+         (define (abs x)
+           (if (< x 0)
+               (- x)
+               x))
+
+         ;; -------------- and,or,not ------------------
+         ;; (and <e1>......<en>)
+         ;; (or <e1>.......<en>)
+         ;; (not <e>)
+       #+END_SRC
+
+    7. sqrt的实现
+       #+BEGIN_SRC racket
+         (define (sqrt-iter guess x)
+           (if (good-enough? guess x)
+               guess
+               (sqrt-iter (improve guess x)
+                          x)))
+
+         (define (good-enough? guess x)
+           (< (abs (- (square guess) x)) 0.0001))
+
+         (define (square x)
+           (* x x))
+
+         (define (improve guess x)
+           (average guess (/ x guess)))
+
+         (define (average a b)
+           (/ (+ a b) 2))
+       #+END_SRC

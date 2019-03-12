@@ -1,0 +1,14 @@
+#+STARTUP:hidestars
+* sorting_algorithm
+  - [X] [[file:sorting_algorithm/quick_sort.c][快速排序]]
+  - [X] [[file:sorting_algorithm/heap_sort.c::int%20src%5B%5D%20=%20{3,4,1,2};][堆排序]]
+  - [X] [[file:sorting_algorithm/merge_sort.c::return%200;][归并排序]]
+  - [X] [[file:sorting_algorithm/insert_sort.c][插入排序]]
+  - [X] [[file:sorting_algorithm/bubble_sort.c::int%20main(){][冒泡排序]]
+  - [X] [[file:sorting_algorithm/selection_sort.c::int%20main(){][选择排序]]
+* tree
+  - [X] [[file:tree/binary_search_trees.c::int%20main(){][二叉搜索树]]
+  - [ ] [[file:tree/avl_trees.c::int%20main(){][平衡二叉树]]
+  - [ ] [[file:tree/b_trees.c::#include%20<stdio.h>][B树]]
+  - [ ] [[file:tree/red-black_trees.c::int%20main(){][红黑树]]
+  - [ ] [[file:tree/b+_trees.c::#include%20<stdio.h>][B+树]]
