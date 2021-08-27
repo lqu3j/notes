@@ -1,4 +1,3 @@
-#+HUGO_BASE_DIR: ~/workspace/blog
 #+title: scip 第一章
 * 第一章
 ** 程序设计的基本元素
